@@ -25,7 +25,6 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
-    role = discord.utils.find(lambda r: r.name == 'Member', ctx.message.guild.roles)
     if client.user.mentioned_in(message):
         embedVar = discord.Embed(title="Witaj!", description=":wrench: Mój prefix to: ``.``\n:tools: Najważniejsze informacje dotyczące bota znajdziesz pod: ``.pomoc``", color=0xFF0000)
         await message.channel.send(embed=embedVar)
