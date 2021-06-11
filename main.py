@@ -65,4 +65,4 @@ client.loop.create_task(statusy())
 
 
 
-client.run("ODQ4ODAxNjIyODYzMjQ5NDM5.YLR6HA.uis_BEBA_Vlr01-QJJdA1sPuU5U")
+client.run("NzY0MzQzMTgwMDkwMTQ2ODU2.X4E4Dg.OjpX0Sl3m8iwOCDf03IxXQeGLJI")
