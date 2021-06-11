@@ -49,7 +49,7 @@ async def DJELIGIBLE(ctx):
         await ctx.send(f'You already have the role {role.name}')
     else:
         await ctx.author.add_roles(role)
-     x   await ctx.send(":white_check_mark: User is now DJ")
+        await ctx.send(":white_check_mark: User is now DJ")
 
 @client.event
 async def statusy():
