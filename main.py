@@ -9,19 +9,13 @@ import discord
 from discord.utils import get 
 from discord.ext import commands 
 
-
-
 client = commands.Bot(command_prefix= ".")
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix=".")
 client.remove_command("help")
 
 @client.event
 async def on_ready():
     print('Pomyślnie zalogowano jako {0.user}'.format(client))
-
-@client.event
-async def on_member_join(member):
-    await member.send('Private message')
 
 @client.event
 async def on_message(message):
@@ -33,24 +27,6 @@ async def on_message(message):
         embedVar = discord.Embed(title="Pomoc | Najważniejsze informacje", description=":clipboard: Liste wszystkich komend znajdziesz pod: ``.komendy``\n:video_game: Opis bota YT Zone znajdziesz pod: ``.opis``", color=0xFF0000)
         await message.channel.send(embed=embedVar)
 
-    if message.content.startswith('.ogłoszenie'):
-        embedVar = discord.Embed(title="Pomoc | Najważniejsze informacje", description=":clipboard: Liste wszystkich komend znajdziesz pod: ``.komendy``\n:video_game: Opis bota YT Zone znajdziesz pod: ``.opis``", color=0xFF0000)
-        await message.channel.send(embed=embedVar)
-        
-@bot.event
-async def on_ready():
-    print('logged in')
-
-@commands.guild_only()
-@bot.command()
-async def DJELIGIBLE(ctx):
-    role = discord.utils.get(ctx.guild.roles, name="Administrator")
-    if role in ctx.author.roles:
-        await ctx.send(f'You already have the role {role.name}')
-    else:
-        await ctx.author.add_roles(role)
-        await ctx.send(":white_check_mark: User is now DJ")
-
 @client.event
 async def statusy():
     await client.wait_until_ready()
@@ -60,8 +36,7 @@ async def statusy():
         await client.change_presence(activity=discord.Game(name=status))
         await asyncio.sleep(60)
 
+
 client.loop.create_task(statusy())
 
-
-
-client.run("NzY0MzQzMTgwMDkwMTQ2ODU2.X4E4Dg.OjpX0Sl3m8iwOCDf03IxXQeGLJI")
+client.run("ODQ4ODAxNjIyODYzMjQ5NDM5.YLR6HA.uis_BEBA_Vlr01-QJJdA1sPuU5U")
