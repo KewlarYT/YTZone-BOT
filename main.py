@@ -5,9 +5,9 @@ import time
 import random
 import asyncio 
 import discord 
-from discord.utils import get 
 from discord.ext import commands
 from discord.ext.commands import has_permissions
+from discord.utils import get 
 
 intents = discord.Intents.default()
 intents.members = True
@@ -15,6 +15,7 @@ intents.messages = True
 
 client = commands.Bot(command_prefix= "?", intents=intents)
 client.remove_command("help")
+
 
 @client.event
 async def on_ready():
@@ -32,24 +33,26 @@ async def on_member_remove(member):
     kanal = discord.utils.get(member.guild.channels, id=852964674440790046)
     await kanal.send(f"{member.name} żegnaj!!!")
 
-@client.event
-async def on_message(message):
-    slowa = ['jd', 'jr']
-    for i in slowa:
-        if i == message.content:
-            rola = discord.utils.get(message.author.guild.roles, id=852039947635523614)
-            await message.author.remove_roles(rola)
-            await message.channel.send("nie pisz tak")
+##!!NIE DZIAŁA!!
+##@client.event
+##async def on_message(message):
+##    slowa = ['jd', 'jr']
+##    for i in slowa:
+##        if i == message.content:
+##            rola = discord.utils.get(message.author.guild.roles, id=852039947635523614)
+##            await message.author.remove_roles(rola)
+##            await message.channel.send("nie pisz tak")
 
-@client.event
-async def on_message(message):
-    if client.user.mentioned_in(message):
-        embedVar = discord.Embed(title="Witaj!", description=":wrench: Mój prefix to: ``.``\n:tools: Najważniejsze informacje dotyczące bota znajdziesz pod: ``.pomoc``", color=0xFF0000)
-        await message.channel.send(embed=embedVar)
+##ZASTĄPIONE KOMENDAMI
+##@client.event
+##async def on_message(message):
+##    if client.user.mentioned_in(message):
+##        embedVar = discord.Embed(title="Witaj!", description=":wrench: Mój prefix to: ``.``\n:tools: Najważniejsze informacje dotyczące bota znajdziesz pod: ``.pomoc``", color=0xFF0000)
+##        await message.channel.send(embed=embedVar)
 
-    if message.content.startswith('.pomoc'):
-        embedVar = discord.Embed(title="Pomoc | Najważniejsze informacje", description=":clipboard: Liste wszystkich komend znajdziesz pod: ``.komendy``\n:video_game: Opis bota YT Zone znajdziesz pod: ``.opis``", color=0xFF0000)
-        await message.channel.send(embed=embedVar)
+##    if message.content.startswith('.pomoc'):
+##        embedVar = discord.Embed(title="Pomoc | Najważniejsze informacje", description=":clipboard: Liste wszystkich komend znajdziesz pod: ``.komendy``\n:video_game: Opis bota YT Zone znajdziesz pod: ``.opis``", color=0xFF0000)
+##        await message.channel.send(embed=embedVar)
 
 @client.command()
 async def help(ctx):
@@ -70,6 +73,10 @@ async def ban(ctx, member : discord.Member, reason="Bez Powodu"):
 async def kick(ctx, member : discord.Member, reason="Bez Powodu"):
     await member.kick(reason=reason)
     await ctx.channel.send(f"Wyrzucono <@{member.id}> za {reason}", delete_after=10)
+
+@client.command()
+async def ping(ctx):
+    print("bot działa!")
 
 @client.event
 async def statusy():
