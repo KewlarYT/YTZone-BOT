@@ -27,7 +27,7 @@ async def on_member_join(member):
     kanal = discord.utils.get(member.guild.channels, id=714198844887531621)
     rola = discord.utils.get(member.guild.roles, id=0)
     await member.add_roles(rola)
-    embedVar = discord.Embed(title="Witaj " f"{member.name}" "!", description=":clipboard: jakiś tekst: ``.jakiś tekst``\n:video_game: jakiś tekst: ``.jakiś tekst``", color=0xFF0000)
+    embedVar = discord.Embed(title="Witaj " f"{member.name}" "!", description="", color=0xFF0000)
     await kanal.send(embed=embedVar)
     await kanal.send(f"{member.mention}", delete_after=2)
 
