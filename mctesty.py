@@ -9,6 +9,7 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 from discord.utils import get 
 import requests
+import datetime
 
 intents = discord.Intents.default()
 intents.members = True
@@ -17,30 +18,55 @@ intents.messages = True
 client = commands.Bot(command_prefix= ".", intents=intents)
 client.remove_command("help")
 
-##           await message.delete() dodać i asyncio.wait zeby na przyklad po czasie usuwalo
-
 @client.event
 async def on_ready():
     print('Pomyślnie zalogowano jako {0.user}'.format(client))
 
-@client.command()
-async def x(ctx, arg):
-    r = requests.get('https://api.mcsrvstat.us/2/hypixel.net')
-    json_data = r.json()
+@client.event
+async def x():
+    while True:
+        await client.wait_until_ready()
 
-    description = json_data["hostname"]
-    online = str(json_data["online"])
-    playerCount = str(json_data["ip"])
+        r = requests.get('https://api.mcsrvstat.us/2/134.255.252.95:2042')
+        json_data = r.json()
+        channel = client.get_channel(866350714551926784)
+        print(channel)
+        try:
+            ip = json_data["ip"]
+            online = str(json_data["online"])
+            playerCount = str(json_data["players"]["online"])
+            maxCount = str(json_data["players"]["max"])
 
-    embed = discord.Embed(
-        title=arg + " Server Info",
-        description='Description: ' + description + '\nOnline: ' + online + '\nPlayers: ' + playerCount,
-        color=discord.Color.dark_green()
-    )
-    ##embed.set_thumbnail(url="https://i1.wp.com/www.craftycreations.net/wp-content/uploads/2019/08/Grass-Block-e1566147655539.png?fit=500%2C500&ssl=1")
+        except KeyError:
+            print("Serwer YT Zone Minecraft jest wyłączony")
+    
+        if online == "True":
+            embed = discord.Embed(
+            title="Serwer Online!",
+                description='IP Serwera: ' + ip + '\nIlość graczy: ' + playerCount + "/" + maxCount + "\nWersja: 1.14",
+                color=discord.Color.green()
+            )
 
-    await ctx.send(embed=embed)
+            embed.timestamp = datetime.datetime.utcnow()
+            embed.set_thumbnail(url="https://i.imgur.com/9zmVAkY.png?fit=500%2C500&ssl=1")
+
+            await channel.send(embed=embed, delete_after=60)
+        else:
+            embed = discord.Embed(
+                title="Serwer Offline!",
+                description='Serwer Youtubers Zone Minecraft jest aktualnie wyłączony. Jeśli nie jest to planowana przerwa techniczna, prosimy o powiadomienie administracji serwera.',
+                color=discord.Color.dark_red()
+            )
+
+            embed.timestamp = datetime.datetime.utcnow()
+            embed.set_thumbnail(url="https://i.imgur.com/9zmVAkY.png?fit=500%2C500&ssl=1")
+
+            await channel.send(embed=embed, delete_after=60)
+
+        await asyncio.sleep(60)
 
 
+client = discord.Client()
 
-client.run("ODQ4ODAxNjIyODYzMjQ5NDM5.YLR6HA.uis_BEBA_Vlr01-QJJdA1sPuU5U")
+client.loop.create_task(x())
+client.run("NzY0MzQzMTgwMDkwMTQ2ODU2.X4E4Dg.OjpX0Sl3m8iwOCDf03IxXQeGLJI")
