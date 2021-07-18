@@ -43,7 +43,7 @@ async def x():
         if online == "True":
             embed = discord.Embed(
             title="Serwer Online!",
-                description='IP Serwera: ' + ip + '\nIlość graczy: ' + playerCount + "/" + maxCount + "\nWersja: 1.14",
+                description='IP Serwera: ' + ip + '\nIlość graczy: ' + playerCount + "/" + maxCount + "\nWersja: 1.14.1",
                 color=discord.Color.green()
             )
 
